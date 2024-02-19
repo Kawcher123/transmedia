@@ -12,6 +12,7 @@ import 'package:transmedia/domain/repositories/product_repository.dart';
 import 'package:transmedia/domain/use_cases/cart_use_case.dart';
 import 'package:transmedia/domain/use_cases/product_use_case.dart';
 import 'package:transmedia/presentation/pages/cart_screen/controllers/cart_screen_controller.dart';
+import 'package:transmedia/presentation/pages/environment_screen/controllers/environment_screen_controller.dart';
 import 'package:transmedia/presentation/pages/home/controllers/home.controller.dart';
 import 'package:http/http.dart' as http;
 import 'package:transmedia/presentation/pages/product_details_screen/controllers/product_details_screen_controller.dart';
@@ -38,6 +39,7 @@ class DependencyInjection {
     getIt.registerLazySingleton<CartRepository>(() => CartRepoImpl(getIt()));
     getIt.registerLazySingleton<CartLocalDatasourceImpl>(() => CartLocalDatasourceImpl());
     getIt.registerLazySingleton<CartUseCase>(() => CartUseCase(getIt()));
+    getIt.registerLazySingleton<EnvironmentScreenController>(() => EnvironmentScreenController(getIt()));
     getIt.registerLazySingleton<HomeController>(() => HomeController(getIt()));
     getIt.registerLazySingleton<CartScreenController>(() => CartScreenController(getIt()));
     getIt.registerLazySingleton<ProductDetailsScreenController>(() => ProductDetailsScreenController(getIt()));

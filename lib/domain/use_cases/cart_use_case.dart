@@ -17,19 +17,25 @@ class CartUseCase{
    return  await _cartRepository.addToCartToDatabase(cartEntity);
   }
 
-  Future updateCartUseCase(CartEntity cartEntity)async
+  Future<Either<Failure, List<CartEntity>>> updateCartUseCase(CartEntity cartEntity)async
   {
-
+    return  await _cartRepository.updateCartToDatabase(cartEntity);
   }
 
-  Future deleteFromCartUseCase(CartEntity cartEntity)async
+  Future<Either<Failure, List<CartEntity>>> deleteFromCartUseCase(CartEntity cartEntity)async
   {
-
+    return  await _cartRepository.deleteFromCartToDatabase(cartEntity);
   }
 
 
   Future<Either<Failure, List<CartEntity>>> getCartListUseCase()async
   {
     return await _cartRepository.getCartListFromDatasource();
+  }
+
+
+  Future<Either<Failure, int>> getCartLengthUseCase()async
+  {
+    return await _cartRepository.getLengthFromDatasource();
   }
 }

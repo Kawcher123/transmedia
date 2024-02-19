@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:transmedia/domain/entities/product_entity.dart';
 import 'package:transmedia/presentation/common/ui.dart';
-import 'package:transmedia/presentation/global_widgets/custom_triangle_paint.dart';
 import 'package:transmedia/presentation/global_widgets/image_widget.dart';
 import 'package:transmedia/presentation/navigation/routes.dart';
 
@@ -18,13 +17,14 @@ class ProductCardWidget extends StatelessWidget {
   ProductEntity productData;
   @override
   Widget build(BuildContext context) {
+    Size _size=MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
         Get.toNamed(Routes.PRODUCT_DETAILS_SCREEN, arguments: productData);
       },
       child: Container(
-        height: size.width * .5,
-        width: width ?? size.width * .4,
+        height: _size.width * .5,
+        width: _size.width * .4,
         decoration: Ui.commonUi.getBoxDecoration(
           radius: boxRadius,
           color: Get.theme.cardColor,
@@ -40,8 +40,8 @@ class ProductCardWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(boxRadius),
             child: ImageWidget(
               imageUrl: productData.thumbnail ?? '',
-              height: size.width * .4,
-              width: size.width,
+              height: _size.width * .4,
+              width: _size.width,
               boxFit: cover,
               imageBoxFit: fitWidth,
             ),

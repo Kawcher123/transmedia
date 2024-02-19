@@ -9,6 +9,7 @@ class AppBarWithoutSearchWidget extends StatelessWidget with PreferredSizeWidget
 
   @override
   Widget build(BuildContext context) {
+    Size _size=MediaQuery.of(context).size;
     return AppBar(
       backgroundColor: Get.theme.cardColor,
       elevation: 0,
@@ -29,16 +30,16 @@ class AppBarWithoutSearchWidget extends StatelessWidget with PreferredSizeWidget
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const SizedBox(
-              width: 10,
+            SizedBox(
+              width: _size.width*0.03,
             ),
             CartIconBtnWithCounter(
               color: const Color(0xFF979797).withOpacity(0.1),
               topValue: '0',
             ),
-            const SizedBox(
-              width: 10,
-            )
+            SizedBox(
+              width: _size.width*0.03,
+            ),
           ],
         )
       ],

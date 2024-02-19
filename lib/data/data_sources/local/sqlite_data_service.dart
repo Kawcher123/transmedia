@@ -69,6 +69,13 @@ class SqliteService {
     }
   }
 
+  Future<int> getCartCount() async {
+    final db = await sqliteService.database;
+    var x = await db.rawQuery('SELECT COUNT (*) from ${CartFields.tableName}');
+        int? count = Sqflite.firstIntValue(x);
+    return count??0;
+  }
+
   Future<int> update(CartModel cartModel) async {
     final db = await sqliteService.database;
     return db.update(

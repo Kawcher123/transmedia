@@ -135,9 +135,10 @@ class Ui {
     );
   }
   Widget customBackIcon({VoidCallback? onPress, Color? color}) {
+
     return getIconButton(
-        height: size.width * .12,
-        width: size.width * .12,
+        height: Get.size.width * .12,
+        width: Get.size.width * .12,
         color: Colors.blue.withOpacity(0.15),
         svgColor: Colors.black,
         radius: 30,
@@ -148,7 +149,7 @@ class Ui {
         child: Icon(
           Icons.arrow_back,
           color: color!,
-          size: size.width*0.05,
+          size: Get.size.width*0.05,
         ),
       ),
     );
@@ -241,16 +242,16 @@ class Ui {
     ).show();
   }
 
-  Widget shimmerLoader({double? width = 200, double? radius, double? height = 100, Color? baseColor, Color? highlightColor}) {
+  Widget shimmerLoader({double? width = 200, double? radius=10, double? height = 100, Color? baseColor, Color? highlightColor}) {
     return Shimmer.fromColors(
       baseColor: baseColor ?? Get.theme.cardColor,
       highlightColor: highlightColor ?? Get.theme.cardColor.withOpacity(0.4),
       child: Container(
           height: height,
           width: width,
-          decoration: getBoxDecoration(
+          decoration: BoxDecoration(
             color: Get.theme.cardColor,
-            radius: radius,
+            borderRadius: BorderRadius.circular(radius!)
           )),
     );
   }

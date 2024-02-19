@@ -16,10 +16,11 @@ class ImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size _size=MediaQuery.of(context).size;
     return CachedNetworkImage(
       imageUrl: imageUrl!,
-      height: height??size.height*0.15,
-      width: width??size.width*0.25,
+      height: height??_size.height*0.15,
+      width: width??_size.width*0.25,
       fit: Ui.commonUi.getBoxFit(imageBoxFit??cover),
       placeholder: (context, url) =>  Padding(
         padding: const EdgeInsets.all(5.0),

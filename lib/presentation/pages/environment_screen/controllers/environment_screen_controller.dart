@@ -1,12 +1,18 @@
 import 'package:get/get.dart';
+import 'package:transmedia/domain/use_cases/cart_use_case.dart';
 
 class EnvironmentScreenController extends GetxController {
   //TODO: Implement EnvironmentScreenController
 
-  final count = 0.obs;
+  final CartUseCase _cartUseCase;
+
+  EnvironmentScreenController(this._cartUseCase);
+
+  final cartCount = 0.obs;
   @override
   void onInit() {
     super.onInit();
+    getCartLength();
   }
 
   @override
@@ -19,5 +25,11 @@ class EnvironmentScreenController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  Future<void> getCartLength() async {
+    var result = await _cartUseCase.getCartLengthUseCase();
+    result.fold((failure) {}, (cartLength) {
+      print('ProductDetailsScreenController.cart length:$cartLength');
+     cartCount.value=cartLength;
+    });
+  }
 }

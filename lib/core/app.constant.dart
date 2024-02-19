@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-final Size size = Get.size;
 
 ///=========padding=========
 const double horizontalPadding=10.0;
@@ -10,6 +9,7 @@ const double verticalPadding=10.0;
 
 ///======================== FONTS ===================
 double largeFontSize = 20;
+double largeliteFontSize = 18;
 double bigMediumFontSize = 16;
 double mediumFontSize = 14;
 double normalFontSize = 11;
