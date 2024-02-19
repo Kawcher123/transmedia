@@ -5,9 +5,14 @@ import 'package:transmedia/injections/dependency_injection.dart';
 import 'package:transmedia/presentation/navigation/navigation.dart';
 import 'package:transmedia/presentation/navigation/routes.dart';
 
+import 'data/data_sources/local/sqlite_data_service.dart';
+
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   var initialRoute = await Routes.initialRoute;
   await DependencyInjection.init();
+
   runApp(Main(initialRoute));
 }
 

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:transmedia/data/data_sources/local/sqlite_data_service.dart';
 import 'package:transmedia/domain/entities/product_entity.dart';
 import 'package:transmedia/domain/use_cases/product_use_case.dart';
 
@@ -13,9 +14,11 @@ class HomeController extends GetxController {
   final productLoaded=false.obs;
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
     _fetchProducts();
+   //int id=await SqliteService.sqliteService.createItem();
+   // print('HomeController.onInit:$id');
   }
 
   Future<void> _fetchProducts() async {
