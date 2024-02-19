@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 final Size size = Get.size;
 
 ///=========padding=========
-const double horizontalPadding=15.0;
+const double horizontalPadding=10.0;
 const double verticalPadding=10.0;
 
 

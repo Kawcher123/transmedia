@@ -5,13 +5,11 @@ import 'package:transmedia/data/models/cart_database_fields_model.dart';
 import 'package:transmedia/data/models/cart_model.dart';
 
 class SqliteService {
-  static SqliteService? _sqliteService;
+  static final SqliteService sqliteService = SqliteService._internal();
 
   static Database? _database;
 
-  SqliteService._();
-
-  static SqliteService get sqliteService => _sqliteService ??= SqliteService._();
+  SqliteService._internal();
   static const String _databaseName = "database.db";
 
   Future<Database> get database async {
@@ -26,37 +24,49 @@ class SqliteService {
   Future<Database> _initDatabase() async {
     final databasePath = await getDatabasesPath();
     final path = '$databasePath/$_databaseName';
-    return await openDatabase(path, version: 1, onCreate: _createDatabase, singleInstance: true);
+    print('SqliteService._initDatabase');
+    return await openDatabase(path, version: 1, onCreate: _createDatabase,singleInstance: true);
   }
 
   Future<void> _createDatabase(Database database, int version) async {
     print('SqliteService._createDatabase....');
     try {
-      await database.execute("""CREATE TABLE IF NOT EXISTS ${CartFields.tableName} (
-       ${CartFields.id} ${CartFields.intType},
-       ${CartFields.title} ${CartFields.textType},
-       ${CartFields.qty} ${CartFields.intType},
-       ${CartFields.price} ${CartFields.doubleType},
-       ${CartFields.image} ${CartFields.textTypeNULL},
-       ${CartFields.idType}
-      )      
-      """);
+      await database.execute("""
+      CREATE TABLE ${CartFields.tableName} (
+        ${CartFields.id} INTEGER PRIMARY KEY AUTOINCREMENT,
+        ${CartFields.title} TEXT NOT NULL,
+        ${CartFields.qty} INTEGER NOT NULL,
+        ${CartFields.price} REAL NOT NULL,
+        ${CartFields.image} TEXT NOT NULL
+      )
+    """);
     } on Exception catch (e) {
       // TODO
-      debugPrint('Local database error.................. $e');
+      debugPrint('Local database error:$e');
+      rethrow;
     }
   }
 
   Future<int> createItem(CartModel cartModel) async {
-    final db = await sqliteService.database;
-    final id = await db.insert(CartFields.tableName, cartModel.toJson());
-    return id;
+    try {
+      final db = await sqliteService.database;
+      final id = await db.insert(CartFields.tableName, cartModel.toJson());
+      return id;
+    } on Exception catch (e) {
+      // TODO
+      rethrow;
+    }
   }
 
   Future<List<CartModel>> readAll() async {
-    final db = await sqliteService.database;
-    final result = await db.query(CartFields.tableName);
-    return result.map((json) => CartModel.fromJson(json)).toList();
+    try {
+      final db = await sqliteService.database;
+      final result = await db.query(CartFields.tableName);
+      return result.map((json) => CartModel.fromJson(json)).toList();
+    } on Exception catch (e) {
+      // TODO
+      rethrow;
+    }
   }
 
   Future<int> update(CartModel cartModel) async {

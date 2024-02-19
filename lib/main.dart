@@ -9,7 +9,6 @@ import 'data/data_sources/local/sqlite_data_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   var initialRoute = await Routes.initialRoute;
   await DependencyInjection.init();
 
@@ -23,6 +22,7 @@ class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: initialRoute,
       getPages: Nav.routes,
     );

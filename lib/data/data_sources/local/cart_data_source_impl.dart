@@ -9,8 +9,7 @@ import 'package:transmedia/data/models/cart_model.dart';
 import 'package:transmedia/data/models/product_model.dart';
 
 class CartLocalDatasourceImpl implements CartLocalDatasource {
-  CartLocalDatasourceImpl(this._sqliteService);
-  final SqliteService _sqliteService; //= SqliteService.sqliteService;
+  final SqliteService _sqliteService = SqliteService.sqliteService;
 
   @override
   Future<List<CartModel>> getAllCartListFromDB() async {
@@ -20,8 +19,38 @@ class CartLocalDatasourceImpl implements CartLocalDatasource {
       cartList = await _sqliteService.readAll();
     } on Exception catch (e) {
       // TODO
-    }
 
+      rethrow;
+    }
     return cartList;
+  }
+
+  @override
+  Future<List<CartModel>> addToCartListFromDB(CartModel cartModel) async {
+    // TODO: implement addToCartListFromDB
+    List<CartModel> cartList = [];
+
+    try {
+      int id = await _sqliteService.createItem(cartModel);
+      cartList=await _sqliteService.readAll();
+    } on Exception catch (e) {
+      // TODO
+
+      debugPrint('error in add to cart datA SOURCE: $e');
+      rethrow;
+    }
+    return cartList;
+  }
+
+  @override
+  Future<List<CartModel>> deleteFromCartListFromDB(CartModel cartModel) {
+    // TODO: implement deleteFromCartListFromDB
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<CartModel>> updateCartListFromDB(CartModel cartModel) {
+    // TODO: implement updateCartListFromDB
+    throw UnimplementedError();
   }
 }

@@ -24,9 +24,14 @@ class Ui {
       color: color ?? Get.theme.primaryColor,
       borderRadius: BorderRadius.all(Radius.circular(radius ?? boxRadius)),
       boxShadow: [
-        BoxShadow(color: shadowColor ?? Get.theme.primaryColor.withOpacity(0.3), blurRadius: 5, offset: const Offset(0, 5)),
+        BoxShadow(
+          color: shadowColor??Get.theme.primaryColor.withOpacity(0.2),
+          spreadRadius: 5,
+          blurRadius: 7,
+          offset: const Offset(0, 3),
+        ),
       ],
-      border: border ?? Border.all(color: Get.theme.textTheme.titleSmall!.color!),
+      border:  Border.all(color:border!=null ? Get.theme.textTheme.titleSmall!.color!:Get.theme.cardColor),
       gradient: gradient,
     );
   }
@@ -111,14 +116,42 @@ class Ui {
       ),
     );
   }
-
+   Widget getIconButton({double? height,Widget? child, double? width, double? radius = 0.0, Color? color, Color? svgColor, String? text='', VoidCallback? press}) {
+    return InkWell(
+      onTap: press,
+      child: Container(
+        height: height,
+        width: width,
+        decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(radius!)),
+        child:Center(
+          child: child ?? Center(
+            child: Text(
+              text!,
+              style: TextStyle(color: Get.theme.textTheme.bodyText1!.color),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
   Widget customBackIcon({VoidCallback? onPress, Color? color}) {
-    return IconButton(
-        onPressed: onPress,
-        icon: Icon(
-          Icons.arrow_back_ios,
+    return getIconButton(
+        height: size.width * .12,
+        width: size.width * .12,
+        color: Colors.blue.withOpacity(0.15),
+        svgColor: Colors.black,
+        radius: 30,
+        press: () {
+          Get.back();
+        },
+      child: Center(
+        child: Icon(
+          Icons.arrow_back,
           color: color!,
-        ));
+          size: size.width*0.05,
+        ),
+      ),
+    );
   }
 
   Widget customSmallBox({double? size, Color? color, Widget? child, double? radius}) {
@@ -129,7 +162,9 @@ class Ui {
       child: Center(child: child),
     );
   }
-
+   customDialogLoader() {
+    return Get.dialog(Center(child: const CircularProgressIndicator()));
+  }
   showAwesomeDialog(String title, String description, Color? color, VoidCallback? onTap, context,
       {bool showClose = false, bool isBarrierDismiss = true, double? width, String type = '', String okay = 'Okay', String cancel = 'No'}) {
     Size size = MediaQuery.of(context).size;

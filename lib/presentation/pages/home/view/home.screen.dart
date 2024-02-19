@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:transmedia/presentation/global_widgets/appbar_with_search.dart';
 import 'package:transmedia/presentation/global_widgets/product_card_widget.dart';
 
+import '../../../../core/app.constant.dart';
 import '../controllers/home.controller.dart';
 
 class HomeScreen extends GetView<HomeController> {
@@ -11,28 +13,26 @@ class HomeScreen extends GetView<HomeController> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('HomeScreen'),
-        centerTitle: true,
-      ),
-      body: Obx(() => controller.productLoaded.isTrue? Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
-        child: GridView.count(
-            primary: false,
-            shrinkWrap: true,
-            crossAxisCount: 2,
-            crossAxisSpacing: 10.0,
-            mainAxisSpacing: 10.0,
-            childAspectRatio: 0.65,
-            children: List.generate(controller.productList.length, (index) {
-              return GestureDetector(
-                onTap: () {},
+      backgroundColor: Get.theme.cardColor,
+      appBar: const AppBarWithSearchWidget(),
+      body: Obx(() => controller.productLoaded.isTrue? GridView.count(
+          primary: true,
+          shrinkWrap: true,
+          crossAxisCount: 2,
+          crossAxisSpacing: 4.0,
+          mainAxisSpacing: 4.0,
+          childAspectRatio: 0.65,
+          children: List.generate(controller.productList.length, (index) {
+            return GestureDetector(
+              onTap: () {},
+              child: Padding(
+                padding:  const EdgeInsets.symmetric(horizontal: horizontalPadding,vertical: verticalPadding),
                 child: ProductCardWidget(
                   productData: controller.productList[index],
                 ),
-              );
-            })),
-      ):const Center(child: CircularProgressIndicator())),
+              ),
+            );
+          })):const Center(child: CircularProgressIndicator())),
     );
   }
 }

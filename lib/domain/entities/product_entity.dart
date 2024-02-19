@@ -6,6 +6,7 @@ class ProductEntity {
   String? thumbnail;
   String? status;
   String? category;
+  double? price;
 
   ProductEntity({
     this.id,
@@ -15,5 +16,6 @@ class ProductEntity {
     this.thumbnail,
     this.status,
     this.category,
+    this.price=100,
   });
 }

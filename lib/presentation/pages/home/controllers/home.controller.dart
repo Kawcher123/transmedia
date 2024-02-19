@@ -17,8 +17,6 @@ class HomeController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     _fetchProducts();
-   //int id=await SqliteService.sqliteService.createItem();
-   // print('HomeController.onInit:$id');
   }
 
   Future<void> _fetchProducts() async {
@@ -30,4 +28,7 @@ class HomeController extends GetxController {
       productLoaded.value=true;
     });
   }
+
+
+
 }
